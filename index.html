@@ -25,14 +25,20 @@
   var leftPressed = false;
   var upPressed = false;
   var downPressed = false;
-  
+
+  document.addEventListener("keydown", keyDownHandler, false);
+  document.addEventListener("keyup", keyUpHandler, false);
   
   function keyDownHandler(e) {
     if(e.keyCode == 39) {
-        rightPressed = true;
+      rightPressed = true;
     }
     else if(e.keyCode == 37) {
         leftPressed = true;
+    } else if(e.keyCode == 40) {
+      upPressed = true;
+    } else if (e.keyCode == 38) {
+      downPressed = true;
     }
   }
 
@@ -42,33 +48,32 @@
     }
     else if(e.keyCode == 37) {
         leftPressed = false;
+    } else if(e.keyCode == 40) {
+      upPressed = false;
+    } else if (e.keyCode == 38) {
+      downPressed = false;
     }
   }
   
-   // Down
-   function keyDownHandler(e) {
-    if(e.keyCode == 40) {
-        upPressed = true;
-    }
-    else if(e.keyCode == 38) {
-        downPressed = true;
-    }
-  }
-
-  document.addEventListener("keydown", keyDownHandler, false);
-  document.addEventListener("keyup", keyUpHandler, false);
-
+  //  // Down
+  //  function keyDownHandler(e) {
+  //   if(e.keyCode == 40) {
+  //       upPressed = true;
+  //   }
+  //   else if(e.keyCode == 38) {
+  //       downPressed = true;
+  //   }
+  // }
    // Up move
-  function keyUpHandler(e) {
-    if(e.keyCode == 40) {
-        upPressed = false;
-    }
-    else if(e.keyCode == 38) {
-        downPressed = false;
-    }
-  }
-
-
+  // function keyUpHandler(e) {
+  //   if(e.keyCode == 40) {
+  //       upPressed = false;
+  //   }
+  //   else if(e.keyCode == 38) {
+  //       downPressed = false;
+  //   }
+  // }
+  
 
   function drawCar() {
     ctx.beginPath();
