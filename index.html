@@ -1,0 +1,107 @@
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Gamedev Canvas</title>
+  <style>
+    * { padding: 0; margin: 0;}
+    canvas { background: #F3FFBD; display: block; margin: 0 auto; }
+  </style>
+</head>
+<body>
+<canvas id="myCanvas" width="480" height="320"></canvas>
+<script>
+  var canvas = document.getElementById("myCanvas");
+  var ctx = canvas.getContext("2d");
+
+  var paddleHeight = 10;
+  var paddleWidth = 75;
+  var paddleX = 30;
+  var paddleY = 50;
+  var gameOver = false;
+
+
+  // move
+  var rightPressed = false;
+  var leftPressed = false;
+  var upPressed = false;
+  var downPressed = false;
+  
+  
+  function keyDownHandler(e) {
+    if(e.keyCode == 39) {
+        rightPressed = true;
+    }
+    else if(e.keyCode == 37) {
+        leftPressed = true;
+    }
+  }
+
+  function keyUpHandler(e) {
+    if(e.keyCode == 39) {
+        rightPressed = false;
+    }
+    else if(e.keyCode == 37) {
+        leftPressed = false;
+    }
+  }
+  
+   // Down
+   function keyDownHandler(e) {
+    if(e.keyCode == 40) {
+        upPressed = true;
+    }
+    else if(e.keyCode == 38) {
+        downPressed = true;
+    }
+  }
+
+  document.addEventListener("keydown", keyDownHandler, false);
+  document.addEventListener("keyup", keyUpHandler, false);
+
+   // Up move
+  function keyUpHandler(e) {
+    if(e.keyCode == 40) {
+        upPressed = false;
+    }
+    else if(e.keyCode == 38) {
+        downPressed = false;
+    }
+  }
+
+
+
+  function drawCar() {
+    ctx.beginPath();
+    ctx.rect(paddleX, paddleY, paddleWidth, paddleHeight);
+    ctx.fillStyle = "#70C1B3";
+    ctx.fill();
+    ctx.closePath();
+  }
+
+  function draw() {
+    if (!gameOver) {
+
+      ctx.clearRect(0,0, canvas.width, canvas.height)
+      drawCar();
+
+      if(rightPressed && paddleX < canvas.width-paddleWidth) {
+        paddleX += 7;
+      }
+      else if(leftPressed && paddleX > 0) {
+        paddleX -= 7;
+      }
+
+      if(upPressed && paddleY < canvas.height-paddleHeight) {
+        paddleY += 7;
+      }
+      else if(downPressed && paddleY > 0) {
+        paddleY -= 7;
+      }
+    }
+  }
+
+  setInterval(draw, 10);
+</script>
+
+</body>
+</html>
