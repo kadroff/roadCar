@@ -4,25 +4,29 @@
   <title>Gamedev Canvas</title>
   <style>
     * { padding: 0; margin: 0;}
-    canvas { background: #F3FFBD; display: block; margin: 0 auto; }
+    canvas { background-image: url("background2.png"); display: block; margin: 0 auto; }
   </style>
 </head>
 <body>
-<canvas id="myCanvas" width="480" height="320"></canvas>
+<canvas id="myCanvas" width="270" height="600"></canvas>
+<img id="source" src="car.jpg" width="300" height="227">
 <script>
   var canvas = document.getElementById("myCanvas");
   var ctx = canvas.getContext("2d");
-
+  var image = document.getElementById('source');
+  
   var player = {
     x: 30,
     y: 50,
     width: 75,
     height: 10,
     speed: 3,
+    img: new Image(),
+    src: rt,
+    
     draw: function() {
       ctx.beginPath();
-      ctx.rect(this.x, this.y, this.width, this.height);
-      ctx.fillStyle = "#70C1B3";
+      ctx.drawImage(, this.x, this.y);
       ctx.fill();
       ctx.closePath();
     }
@@ -42,13 +46,15 @@
       this.width = 40;
       this.height = 20;
       this.speed = 1;
+      this.img = new Image();
+      this.img.src = 'car2.jpg';
     }
 
     draw() {
       this.y += this.speed;
       ctx.beginPath();
-      ctx.rect(this.x, this.y, this.width, this.height);
-      ctx.fillStyle = "#70C1B3";
+      // ctx.rect(, , this.width, this.height);
+      ctx.drawImage(this.img, this.x, this.y);
       ctx.fill();
       ctx.closePath();
     }
