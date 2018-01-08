@@ -12,13 +12,24 @@
 <script>
   var canvas = document.getElementById("myCanvas");
   var ctx = canvas.getContext("2d");
-
   var paddleHeight = 10;
   var paddleWidth = 75;
   var paddleX = 30;
   var paddleY = 50;
-  var gameOver = false;
+  var speed = 3;
 
+  var brickClone = [];
+  var brick = {
+    bricksY: undefined,
+    bricksX: undefined,
+    draw: function() {
+      ctx.beginPath();
+      ctx.rect(bricksX, bricksY, 40, 20);
+      ctx.fillStyle = "#70C1B3";
+      ctx.fill();
+      ctx.closePath();
+    }
+  }
 
   // move
   var rightPressed = false;
@@ -32,8 +43,7 @@
   function keyDownHandler(e) {
     if(e.keyCode == 39) {
       rightPressed = true;
-    }
-    else if(e.keyCode == 37) {
+    } else if(e.keyCode == 37) {
         leftPressed = true;
     } else if(e.keyCode == 40) {
       upPressed = true;
@@ -45,8 +55,7 @@
   function keyUpHandler(e) {
     if(e.keyCode == 39) {
         rightPressed = false;
-    }
-    else if(e.keyCode == 37) {
+    } else if(e.keyCode == 37) {
         leftPressed = false;
     } else if(e.keyCode == 40) {
       upPressed = false;
@@ -55,26 +64,6 @@
     }
   }
   
-  //  // Down
-  //  function keyDownHandler(e) {
-  //   if(e.keyCode == 40) {
-  //       upPressed = true;
-  //   }
-  //   else if(e.keyCode == 38) {
-  //       downPressed = true;
-  //   }
-  // }
-   // Up move
-  // function keyUpHandler(e) {
-  //   if(e.keyCode == 40) {
-  //       upPressed = false;
-  //   }
-  //   else if(e.keyCode == 38) {
-  //       downPressed = false;
-  //   }
-  // }
-  
-
   function drawCar() {
     ctx.beginPath();
     ctx.rect(paddleX, paddleY, paddleWidth, paddleHeight);
@@ -83,28 +72,51 @@
     ctx.closePath();
   }
 
-  function draw() {
-    if (!gameOver) {
-
-      ctx.clearRect(0,0, canvas.width, canvas.height)
-      drawCar();
-
-      if(rightPressed && paddleX < canvas.width-paddleWidth) {
-        paddleX += 7;
-      }
-      else if(leftPressed && paddleX > 0) {
-        paddleX -= 7;
-      }
-
-      if(upPressed && paddleY < canvas.height-paddleHeight) {
-        paddleY += 7;
-      }
-      else if(downPressed && paddleY > 0) {
-        paddleY -= 7;
-      }
-    }
+  function clone() {
+    var newBrick = Object.assign({}, brick);
+    brickClone.push(newBrick);
   }
 
+function position() {
+  this.bricksY = Math.random() * (100 - 80) + 80;
+  this.bricksX = Math.random() * (450 - 250) + 250;
+}
+
+  function draw() {
+    ctx.clearRect(0,0, canvas.width, canvas.height)
+    drawCar();
+
+    brickClone.forEach(function(brick){
+      brick.draw();
+    });
+
+    // if(this.bricksY > 200 || this.bricksY == undefined) {
+    //   this.bricksY = Math.random() * (90 - 80) + 80;
+    // }
+
+    // if(this.bricksY > 200 || this.bricksX == undefined) {
+    //   this.bricksX = Math.random() * (350 - 250) + 150;
+    //   console.log("test");
+    // }
+
+    if(rightPressed && paddleX < canvas.width-paddleWidth) {
+      paddleX += 7;
+    }
+    else if(leftPressed && paddleX > 0) {
+      paddleX -= 7;
+    }
+
+    if(upPressed && paddleY < canvas.height-paddleHeight) {
+      paddleY += 7;
+    }
+    else if(downPressed && paddleY > 0) {
+      paddleY -= 7;
+    }
+
+    this.bricksY++;
+    }
+  setInterval(clone, 5000);
+  setInterval(position, 5000);
   setInterval(draw, 10);
 </script>
 
