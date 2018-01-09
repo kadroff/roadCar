@@ -3,30 +3,29 @@
   <meta charset="utf-8"/>
   <title>Gamedev Canvas</title>
   <style>
-    * { padding: 0; margin: 0;}
+    * { padding: 0; margin: 0; background-image: url("background_canvas.jpg"); background-position: center center }
     canvas { background-image: url("background2.png"); display: block; margin: 0 auto; }
   </style>
 </head>
 <body>
 <canvas id="myCanvas" width="270" height="600"></canvas>
-<img id="source" src="car.jpg" width="300" height="227">
+<audio id="motor" src="formula.mp3"></audio>
+<img id="source" src="ferrari.gif">
 <script>
   var canvas = document.getElementById("myCanvas");
   var ctx = canvas.getContext("2d");
-  var image = document.getElementById('source');
+  document.getElementById('motor').play();
   
   var player = {
     x: 30,
     y: 50,
-    width: 75,
-    height: 10,
+    width: 26,
+    height: 64,
     speed: 3,
-    img: new Image(),
-    src: rt,
-    
+    img: document.getElementById('source'),
     draw: function() {
       ctx.beginPath();
-      ctx.drawImage(, this.x, this.y);
+      ctx.drawImage(this.img,this.x, this.y);
       ctx.fill();
       ctx.closePath();
     }
@@ -43,11 +42,11 @@
     constructor(x) {
       this.x = x;
       this.y = 0;
-      this.width = 40;
-      this.height = 20;
+      this.width = 28;
+      this.height = 62;
       this.speed = 1;
       this.img = new Image();
-      this.img.src = 'car2.jpg';
+      this.img.src = 'red_bull.gif';
     }
 
     draw() {
@@ -130,7 +129,7 @@
       brick.draw();
 
       if (isCollide(player, brick)) {
-        console.log("collission");
+        document.location.reload();
       } 
     });
 
@@ -147,7 +146,7 @@
   }
 
   function getRandomX() {
-    return(Math.floor(Math.random() * 115) + 100)
+    return(Math.floor(Math.random() * 115) + 60)
   }
 </script>
 
