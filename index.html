@@ -110,17 +110,17 @@
     player.draw();
 
     if(rightPressed && player.x < canvas.width-player.width) {
-      player.x += 7;
+      player.x += 2;
     }
     else if(leftPressed && player.x > 0) {
-      player.x -= 7;
+      player.x -= 2;
     }
 
     if(upPressed && player.y < canvas.height-player.height) {
-      player.y += 7;
+      player.y += 3;
     }
     else if(downPressed && player.y > 0) {
-      player.y -= 7;
+      player.y -= 3;
     }
 
     // @TODO Здесь нужно дописать удаление блока, когда он выходит за пределы игрового поля
